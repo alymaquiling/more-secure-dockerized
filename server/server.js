@@ -14,6 +14,10 @@ app.use(cors({
   origin: 'http://localhost:1234'
 }));
 
+app.use(cors({
+  exposedHeaders: ['x-access-token', 'Origin', 'Content-Type', 'Accept'],
+}));
+
 const db = require('./app/models');
 const Role = db.role;
 
