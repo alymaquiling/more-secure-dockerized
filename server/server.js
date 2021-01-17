@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcryptjs')
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors({
 
 const db = require('./app/models');
 const Role = db.role;
+const User = db.user;
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log('Drop and Resync Db');
@@ -41,6 +43,25 @@ function initial() {
     id: 3,
     name: 'admin'
   });
+
+  User.create({
+    username: "admin",
+    email: "administrator",
+    password: bcrypt.hashSync("administrator", 8),
+    roles: [db.ROLES[0], db.ROLES[1], db.ROLES[2]]
+  }).then(user => {
+    user.setRoles([1, 2, 3])
+  })
+  
+  User.create({
+    username: "mod",
+    email: "mod@example.com",
+    password: bcrypt.hashSync("moderator", 8),
+    roles: [db.ROLES[0], db.ROLES[1], db.ROLES[2]]
+  }).then(user => {
+    user.setRoles([1, 2])
+  })
+
 }
 
 // routes
