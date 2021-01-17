@@ -140,7 +140,7 @@ const Register = (props) => {
                 <label htmlFor="password">Password</label>
                 <Input
                   type="password"
-                  className="form-control"
+                  className="form-control text-light"
                   name="password"
                   value={password}
                   onChange={onChangePassword}

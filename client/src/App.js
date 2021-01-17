@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div class="bg">
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <Link to={"/"} className="navbar-brand">
             More Secure App
@@ -101,7 +101,7 @@ const App = () => {
           )}
         </nav>
 
-        <div className="container mt-3">
+        <div className="container mt-3 text-light">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
