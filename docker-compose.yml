@@ -6,6 +6,17 @@ services:
       - server
     ports:
       - "1234:1234"
+  db:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    restart: "always"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test-db
   server:
     build: ./server
     depends_on:
@@ -16,12 +27,3 @@ services:
       PORT: 3000
     ports:
       - "3000:3000"
-  db:
-    image: postgres:10.4
-    ports:
-      - "5432:5432"
-    restart: "always"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: test-db
